@@ -57,3 +57,7 @@ position = Vector2(0, -17)
 
 [node name="MarkerBottom" type="Marker2D" parent="."]
 position = Vector2(0, 25)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-1, 27)
+scale = Vector2(2.95, 0.2)

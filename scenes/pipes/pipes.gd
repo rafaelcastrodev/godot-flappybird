@@ -33,5 +33,6 @@ func _on_pipes_touched() -> void:
 
 
 func _visible_on_screen_notifier_entered():
+	self.queue_free();
 	pipes_screen_exited.emit(self.name);
 #}

@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://c31snoheijwx0"]
+[gd_scene load_steps=6 format=3 uid="uid://c31snoheijwx0"]
 
 [ext_resource type="Script" path="res://scenes/game.gd" id="1_qd0df"]
 [ext_resource type="PackedScene" uid="uid://cfal58l6541dx" path="res://scenes/player/player.tscn" id="1_w37s1"]
 [ext_resource type="FontFile" uid="uid://br55wehy7gunl" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="3_felht"]
 [ext_resource type="PackedScene" uid="uid://7m322rpkipdt" path="res://scenes/background/background.tscn" id="4_muon1"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_075ds"]
 
 [node name="GAME" type="Node2D"]
 script = ExtResource("1_qd0df")
@@ -41,3 +43,9 @@ autostart = true
 
 [node name="Background" parent="." instance=ExtResource("4_muon1")]
 metadata/_edit_lock_ = true
+
+[node name="Killzone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(56, 784)
+shape = SubResource("WorldBoundaryShape2D_075ds")

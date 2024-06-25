@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://7m322rpkipdt"]
+[gd_scene load_steps=7 format=3 uid="uid://7m322rpkipdt"]
 
 [ext_resource type="Texture2D" uid="uid://b3m3mbw2j2y2h" path="res://assets/sprites/bg1.png" id="1_2s86y"]
 [ext_resource type="Script" path="res://scenes/background/background.gd" id="1_mfvs4"]
@@ -6,9 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://dtt0lnh0lifnr" path="res://assets/sprites/bg3.png" id="3_gj1xm"]
 [ext_resource type="Texture2D" uid="uid://gisfnoddgghj" path="res://assets/sprites/bg4.png" id="4_urbry"]
 [ext_resource type="Texture2D" uid="uid://ctqxyof1p4r2e" path="res://assets/sprites/bg5.png" id="5_fdnyl"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vh67i"]
-size = Vector2(359.5, 52)
 
 [node name="Background" type="Node2D"]
 script = ExtResource("1_mfvs4")
@@ -56,19 +53,11 @@ scale = Vector2(2.5, 2.01436)
 texture = ExtResource("4_urbry")
 
 [node name="BgFloor" type="ParallaxLayer" parent="ParallaxBackground"]
-visible = false
 motion_scale = Vector2(2, 0)
 motion_mirroring = Vector2(360, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/BgFloor"]
 texture_repeat = 2
-position = Vector2(179.838, 738.813)
-scale = Vector2(2.14093, 1.61384)
+position = Vector2(180, 750.406)
+scale = Vector2(2.14093, 1.27121)
 texture = ExtResource("5_fdnyl")
-
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2(288, 808)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-107.75, -90)
-shape = SubResource("RectangleShape2D_vh67i")

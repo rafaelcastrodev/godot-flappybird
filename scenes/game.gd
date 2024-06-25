@@ -34,14 +34,17 @@ var _viewport_height: float;
 @onready var timer_add_pipes: Timer = $TimerAddPipes;
 @onready var label_score: Label = $CanvasLayer/CenterContainer/Label;
 @onready var background: BackgroundParallax = $Background;
+@onready var killzone: Area2D = $Killzone;
+
 
 
 func _ready() -> void:
 
 	_viewport_height = get_viewport().size.y;
-	background.floor_touched.connect(_on_background_floor_touched);
+
 	timer_add_pipes.wait_time = pipes_spawn_delay;
 	timer_add_pipes.timeout.connect(_add_more_pipes);
+	killzone.body_entered.connect(_on_background_floor_touched);
 
 	_set_background_parallax_speed();
 	_set_player();
@@ -92,7 +95,7 @@ func _add_more_pipes() -> void:
 	var pipes_pos_y = randf_range(pipes_min_y_position, pipes_max_y_position);
 	var pipes_pos_x = pipes_last_placement + pipes_spawn_spacing;
 	pipes_instance.position = Vector2(pipes_pos_x, pipes_pos_y);
-	print("Pos: "+ str(pipes_pos_y)+" "+str(pipes_pos_x));
+
 	pipes_last_placement = pipes_instance.position.x;
 
 	# Pipes scaling
@@ -125,8 +128,12 @@ func _get_unique_id() -> float:
 
 func _game_over() -> void:
 	player.queue_free();
-	print("game over")
+	return_to_main_menu();
 	return;
+#}
+
+func return_to_main_menu() -> void:
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn");
 #}
 
 
@@ -137,16 +144,16 @@ func _on_pipes_conquered() -> void:
 
 
 func _on_pipes_screen_exited(pipe_name: String) -> void:
-	_pipes_spawned[pipe_name].queue_free();
 	_pipes_spawned.erase(pipe_name);
 #}
 
 
-func _on_background_floor_touched() -> void:
-	_game_over();
+func _on_background_floor_touched(body: Node2D) -> void:
+	if body is Player:
+		_game_over();
 #}
 
 
 func _on_pipes_touched() -> void:
-	_game_over()
+	_game_over();
 #}
