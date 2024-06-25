@@ -1,33 +1,43 @@
-[gd_scene load_steps=4 format=3 uid="uid://c31snoheijwx0"]
+[gd_scene load_steps=5 format=3 uid="uid://c31snoheijwx0"]
 
-[ext_resource type="Script" path="res://scenes/game.gd" id="1_n8tk0"]
+[ext_resource type="Script" path="res://scenes/game.gd" id="1_qd0df"]
 [ext_resource type="PackedScene" uid="uid://cfal58l6541dx" path="res://scenes/player/player.tscn" id="1_w37s1"]
 [ext_resource type="FontFile" uid="uid://br55wehy7gunl" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="3_felht"]
+[ext_resource type="PackedScene" uid="uid://7m322rpkipdt" path="res://scenes/background/background.tscn" id="4_muon1"]
 
 [node name="GAME" type="Node2D"]
-script = ExtResource("1_n8tk0")
+script = ExtResource("1_qd0df")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(3.5, 3.5)
-
-[node name="Player" parent="." instance=ExtResource("1_w37s1")]
-position = Vector2(-25, 0)
-
-[node name="TimerAddPipes" type="Timer" parent="."]
-autostart = true
+position = Vector2(296, 424)
+metadata/_edit_lock_ = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
 offset_left = 16.0
-offset_top = 32.0
-offset_right = 376.0
+offset_top = 24.0
+offset_right = 344.0
 offset_bottom = 80.0
 
 [node name="Label" type="Label" parent="CanvasLayer/CenterContainer"]
 texture_filter = 1
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("3_felht")
 theme_override_font_sizes/font_size = 32
 text = "0"
 horizontal_alignment = 1
+
+[node name="Player" parent="." instance=ExtResource("1_w37s1")]
+position = Vector2(96, 416)
+
+[node name="TimerAddPipes" type="Timer" parent="."]
+autostart = true
+
+[node name="Background" parent="." instance=ExtResource("4_muon1")]
+metadata/_edit_lock_ = true

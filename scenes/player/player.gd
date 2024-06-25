@@ -1,28 +1,27 @@
-class_name Player extends CharacterBody2D;
-
-const FORWARD_SPEED = 25.0;
-const JUMP_STRENGTH = 240.0;
-const PLAYER_FIELD_VIEW = 30;
-var GRAVITY: int = ProjectSettings.get_setting("physics/2d/default_gravity");
+class_name Player
+extends CharacterBody2D;
 
 @onready var animator: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision: CollisionShape2D = $CollisionShape2D
+@onready var marker_top: Marker2D = $MarkerTop;
+@onready var marker_bottom: Marker2D = $MarkerBottom;
 
-func _ready() -> void:
-	pass;
-#}
 
 func _physics_process(delta: float) -> void:
 
-	velocity.x = FORWARD_SPEED;
+	if not owner.is_player_movement_enabled:
+		return;
+
+	velocity.x = owner.player_forward_speed;
 
 	# Handle gravity
-	velocity.y += GRAVITY * delta;
+	if owner.is_gravity_enabled:
+		velocity.y += owner.gravity * delta;
 
 	# Handle jump.
 	if Input.is_action_just_pressed("flap"):
-		velocity.y = JUMP_STRENGTH * (-1);
-	
+		velocity.y = owner.player_jump_strength * (-1);
+
 	move_and_slide()
 #}
 

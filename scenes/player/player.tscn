@@ -33,18 +33,27 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5tdpl"]
+radius = 21.0
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(0, -10)
 script = ExtResource("1_7jbbs")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-10, -4.23857e-07)
-scale = Vector2(1.55556, 1.55556)
+position = Vector2(-21.7143, 4)
+scale = Vector2(3.55556, 3.55555)
 sprite_frames = SubResource("SpriteFrames_8b7n1")
 animation = &"idle"
+autoplay = "idle"
 frame_progress = 0.328341
 offset = Vector2(6.42857, -9.53674e-07)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
 shape = SubResource("CircleShape2D_5tdpl")
+
+[node name="MarkerTop" type="Marker2D" parent="."]
+position = Vector2(0, -17)
+
+[node name="MarkerBottom" type="Marker2D" parent="."]
+position = Vector2(0, 25)
