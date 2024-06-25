@@ -1,11 +1,11 @@
 extends Node2D;
 
-const PIPE_SPAWN_DELAY: float = 2.0;
-const PIPE_SPAWN_THRESOLD: float = 55;
+const PIPE_SPAWN_DELAY: float = 1.6;
+const PIPE_SPAWN_THRESOLD: float = 90;
 
 var score: int = 0;
 var pipes_scene := preload("res://scenes/pipes/pipes.tscn");
-var _pipe_last_placed_position: float = 64;
+var _pipe_last_placed_position: float = 45;
 var _pipes_spawned: Dictionary;
 var _viewport_height: float;
 
@@ -41,7 +41,7 @@ func _add_more_pipes() -> void:
 
 	var pipes_instance = pipes_scene.instantiate();
 
-	var pipes_pos_y = randf_range(-100,100);
+	var pipes_pos_y = randf_range(-80,60);
 	var pipes_pos_x = _pipe_last_placed_position + PIPE_SPAWN_THRESOLD;
 	pipes_instance.position = Vector2(pipes_pos_x, pipes_pos_y)
 

@@ -5,7 +5,7 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o7wei"]
 radius = 1.0
-height = 52.0
+height = 74.0
 
 [node name="Pipes" type="Node2D"]
 script = ExtResource("1_o5sfl")
@@ -14,16 +14,16 @@ script = ExtResource("1_o5sfl")
 position = Vector2(9, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-6, 0)
+position = Vector2(5, 0)
 shape = SubResource("CapsuleShape2D_o7wei")
 
 [node name="PipeTop" parent="." instance=ExtResource("2_4pt7y")]
-position = Vector2(0, -25)
+position = Vector2(0, -35)
 rotation = 3.14159
 
 [node name="PipeBottom" parent="." instance=ExtResource("2_4pt7y")]
-position = Vector2(0, 25)
+position = Vector2(0, 35)
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(29, 2)
 scale = Vector2(0.8, 2)
-metadata/_edit_lock_ = true
