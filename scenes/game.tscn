@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://dxwqyx0y1mqnc"]
+[gd_scene load_steps=8 format=3 uid="uid://dxwqyx0y1mqnc"]
 
 [ext_resource type="PackedScene" uid="uid://ojouugymjgfc" path="res://scenes/player/player.tscn" id="1_1w7wy"]
 [ext_resource type="PackedScene" uid="uid://do1yli06m75r0" path="res://scenes/background/background.tscn" id="1_5tgdl"]
 [ext_resource type="Script" path="res://scenes/game.gd" id="1_8w6fo"]
 [ext_resource type="FontFile" uid="uid://bwp85flveuup5" path="res://assets/fonts/Dihil.ttf" id="4_cmmtq"]
+[ext_resource type="PackedScene" uid="uid://c6uohv43bu11b" path="res://ui/game_over/game_over.tscn" id="5_b7yu8"]
+[ext_resource type="PackedScene" uid="uid://buf1u00vut6io" path="res://ui/main_menu/main_menu.tscn" id="6_q8v2u"]
+[ext_resource type="AudioStream" uid="uid://c1kxdy7jdpaj8" path="res://assets/music/marimba-tropical-african-travel-game-197517.mp3" id="7_xkgy8"]
 
 [node name="GAME" type="Node"]
 script = ExtResource("1_8w6fo")
@@ -42,3 +45,16 @@ theme_override_constants/shadow_offset_x = 2
 theme_override_fonts/font = ExtResource("4_cmmtq")
 theme_override_font_sizes/font_size = 64
 text = "0"
+
+[node name="MenuGameOver" parent="CanvasLayer" instance=ExtResource("5_b7yu8")]
+process_mode = 3
+visible = false
+
+[node name="MainMenu" parent="CanvasLayer" instance=ExtResource("6_q8v2u")]
+process_mode = 3
+visible = false
+
+[node name="BgMusicPlayer" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
+stream = ExtResource("7_xkgy8")
+autoplay = true

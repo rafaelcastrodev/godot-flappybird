@@ -1,0 +1,63 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6uohv43bu11b"]
+
+[ext_resource type="Script" path="res://ui/game_over/game_over.gd" id="1_8uote"]
+[ext_resource type="FontFile" uid="uid://bwp85flveuup5" path="res://assets/fonts/Dihil.ttf" id="2_4vvm0"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_8uote")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_top = 350.0
+offset_right = 721.0
+offset_bottom = 432.0
+alignment = 1
+
+[node name="LabelGameOver" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_4vvm0")
+theme_override_font_sizes/font_size = 64
+text = "GAME OVER"
+
+[node name="LabelScore" type="Label" parent="."]
+layout_mode = 2
+offset_left = 168.0
+offset_top = 532.0
+offset_right = 282.0
+offset_bottom = 564.0
+theme_override_fonts/font = ExtResource("2_4vvm0")
+theme_override_font_sizes/font_size = 32
+text = "Score"
+
+[node name="LabelScoreValue" type="Label" parent="."]
+layout_mode = 2
+offset_left = 371.0
+offset_top = 530.0
+offset_right = 485.0
+offset_bottom = 562.0
+theme_override_fonts/font = ExtResource("2_4vvm0")
+theme_override_font_sizes/font_size = 32
+text = "0"
+horizontal_alignment = 2
+
+[node name="Replay" type="Button" parent="."]
+layout_mode = 0
+offset_left = 422.0
+offset_top = 625.0
+offset_right = 590.0
+offset_bottom = 673.0
+theme_override_fonts/font = ExtResource("2_4vvm0")
+theme_override_font_sizes/font_size = 32
+text = "REPLAY"
+
+[node name="Quit" type="Button" parent="."]
+layout_mode = 0
+offset_left = 305.0
+offset_top = 623.0
+offset_right = 414.0
+offset_bottom = 674.0
+theme_override_fonts/font = ExtResource("2_4vvm0")
+theme_override_font_sizes/font_size = 32
+text = "QUIT"

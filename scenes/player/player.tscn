@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://ojouugymjgfc"]
+[gd_scene load_steps=9 format=3 uid="uid://ojouugymjgfc"]
 
 [ext_resource type="Texture2D" uid="uid://bm5bj2b3drqe2" path="res://assets/sprites/bird.png" id="1_2ed60"]
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_kjifl"]
+[ext_resource type="AudioStream" uid="uid://ceb0eiqaj5r4v" path="res://assets/sfx/retro_footstep_grass_01.wav" id="3_qqukr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jebwf"]
 atlas = ExtResource("1_2ed60")
@@ -28,8 +29,8 @@ animations = [{
 "texture": SubResource("AtlasTexture_fl6ja")
 }],
 "loop": true,
-"name": &"idle",
-"speed": 5.0
+"name": &"flap",
+"speed": 10.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_awsq5"]
@@ -42,7 +43,7 @@ script = ExtResource("1_kjifl")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -6)
 sprite_frames = SubResource("SpriteFrames_es0ii")
-animation = &"idle"
+animation = &"flap"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.4, -6)
@@ -54,3 +55,6 @@ position = Vector2(0, -12)
 
 [node name="MarkerBottom" type="Marker2D" parent="."]
 position = Vector2(0, -9.53674e-07)
+
+[node name="SfxFlapAudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_qqukr")

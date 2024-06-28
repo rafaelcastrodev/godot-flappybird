@@ -5,7 +5,7 @@ extends Node
 
 @export_category("Pipes")
 @export_range(-80,0,.99) var pipes_min_y_position: int = 240;
-@export_range(0,60,.99)  var pipes_max_y_position: int = 850;
+@export_range(0,60,.99)  var pipes_max_y_position: int = 830;
 @export var pipes_spawn_delay: float = 1.6;
 @export var pipes_spawn_spacing: int = 450; #Space between pipes instances
 @export var pipes_last_placement: float; #
@@ -23,10 +23,12 @@ extends Node
 @export var player_scale: float = 5;
 @export var can_jump: bool = true;
 
+const SCENE_PIPE := preload("res://scenes/pipes/pipes.tscn");
+const SFX_FLAP := preload("res://assets/sfx/retro_footstep_grass_01.wav");
+const BG_MUSIC := preload("res://assets/music/marimba-tropical-african-travel-game-197517.mp3");
 var player_calculated_height: float;
 var player_center_y: float;
 var score: int = 0;
-var pipes_scene := preload("res://scenes/pipes/pipes.tscn");
 var _pipes_spawned: Dictionary;
 var _viewport_height: float;
 var _viewport_width: float;
@@ -37,9 +39,21 @@ var _pipes_spawn_counter: int = 0;
 @onready var player: Player = $Player;
 @onready var timer_add_pipes: Timer = $TimerAddPipes;
 @onready var label_score = $CanvasLayer/Control/HBoxContainer/LabelScore;
+@onready var menu_game_over: Control = $CanvasLayer/MenuGameOver;
+@onready var menu_main: Control = $CanvasLayer/MainMenu;
+@onready var bg_music_player: AudioStreamPlayer2D = $BgMusicPlayer
 
 
 func _ready() -> void:
+	_toggle_pause_game();
+	bg_music_player.stream = BG_MUSIC;
+	bg_music_player.stream.loop = true;
+	bg_music_player.play();
+	menu_game_over.hide();
+	label_score.hide();
+	menu_main.show();
+	menu_main.game_started.connect(_start_game);
+	menu_game_over.game_restarted.connect(_restart_game);
 	_viewport_height = get_viewport().size.y;
 	_viewport_width = get_viewport().size.x;
 	pipes_last_placement = _viewport_width;
@@ -48,7 +62,7 @@ func _ready() -> void:
 	#killzone.body_entered.connect(_on_background_floor_touched);
 	#_set_background_parallax_speed();
 	_set_player();
-	_add_more_pipes(true);
+	#_add_more_pipes(true);
 #}
 
 
@@ -60,18 +74,29 @@ func _process(delta: float) -> void:
 #}
 
 
+func _start_game() -> void:
+	label_score.show();
+	menu_main.hide();
+	_toggle_pause_game();
+#}
+
+func _restart_game() -> void:
+	get_tree().change_scene_to_file("res://scenes/game.tscn");
+#}
+
+
 func _add_more_pipes(is_first_pipe: bool = false) -> void:
 
 	#Prevent spawn without player
 	if not player or _pipes_spawn_counter == 5:
 		return;
-		
-	_pipes_spawn_counter += 1;
-		
-	# Prevent instantiations without scene
-	var pipes_instance = pipes_scene.instantiate();
 
-	if not pipes_scene:
+	_pipes_spawn_counter += 1;
+
+	# Prevent instantiations without scene
+	var pipes_instance = SCENE_PIPE.instantiate();
+
+	if not SCENE_PIPE:
 		printerr("Error: Could not load pipes!");
 		return;
 
@@ -80,10 +105,10 @@ func _add_more_pipes(is_first_pipe: bool = false) -> void:
 	var r2 = randf_range(pipes_min_y_position, pipes_max_y_position);
 	var pipes_pos_y = randf_range(r1, r2);
 	var pipes_pos_x = pipes_last_placement + pipes_spawn_spacing;
-	
+
 	if is_first_pipe:
 		pipes_pos_x = _viewport_width + player_field_of_view;
-	
+
 	pipes_instance.position = Vector2(pipes_pos_x, pipes_pos_y);
 	pipes_last_placement = pipes_instance.position.x;
 
@@ -100,7 +125,7 @@ func _add_more_pipes(is_first_pipe: bool = false) -> void:
 	_pipes_spawned[pipes_instance.name] = pipes_instance;
 
 	# Display on screen
-	
+
 	add_child(pipes_instance);
 	#var rangeFactor = randf_range(pipes_top_tunnel_factor, pipes_bottom_tunnel_factor);
 	#pipes_instance.pipe_top.position.y = player_calculated_height * rangeFactor * (-1);
@@ -122,6 +147,7 @@ func _set_background_parallax_speed() -> void:
 
 
 func _set_player() -> void:
+	player.sfx_flap_audio_stream_player.stream = SFX_FLAP;
 	player.z_index = 1;
 	player.scale = Vector2(player_scale,player_scale);
 	player_center_y = player.position.y;
@@ -136,10 +162,18 @@ func _get_unique_id() -> float:
 
 
 func _game_over() -> void:
-	#player.queue_free();
-	return_to_main_menu();
+	player.queue_free();
+	label_score.hide();
+	menu_game_over.show();
 	return;
 #}
+
+
+func _toggle_pause_game() -> void:
+	var pause_state: bool = get_tree().paused;
+	get_tree().paused = not pause_state;
+#}
+
 
 func return_to_main_menu() -> void:
 	return;
@@ -150,6 +184,7 @@ func return_to_main_menu() -> void:
 func _on_pipes_conquered() -> void:
 	score += 1;
 	label_score.text = str(score);
+	menu_game_over.label_score_value.text = label_score.text;
 #}
 
 
