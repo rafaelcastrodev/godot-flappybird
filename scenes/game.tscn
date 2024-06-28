@@ -1,51 +1,44 @@
-[gd_scene load_steps=6 format=3 uid="uid://c31snoheijwx0"]
+[gd_scene load_steps=5 format=3 uid="uid://dxwqyx0y1mqnc"]
 
-[ext_resource type="Script" path="res://scenes/game.gd" id="1_qd0df"]
-[ext_resource type="PackedScene" uid="uid://cfal58l6541dx" path="res://scenes/player/player.tscn" id="1_w37s1"]
-[ext_resource type="FontFile" uid="uid://br55wehy7gunl" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="3_felht"]
-[ext_resource type="PackedScene" uid="uid://7m322rpkipdt" path="res://scenes/background/background.tscn" id="4_muon1"]
+[ext_resource type="PackedScene" uid="uid://ojouugymjgfc" path="res://scenes/player/player.tscn" id="1_1w7wy"]
+[ext_resource type="PackedScene" uid="uid://do1yli06m75r0" path="res://scenes/background/background.tscn" id="1_5tgdl"]
+[ext_resource type="Script" path="res://scenes/game.gd" id="1_8w6fo"]
+[ext_resource type="FontFile" uid="uid://bwp85flveuup5" path="res://assets/fonts/Dihil.ttf" id="4_cmmtq"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_075ds"]
+[node name="GAME" type="Node"]
+script = ExtResource("1_8w6fo")
 
-[node name="GAME" type="Node2D"]
-script = ExtResource("1_qd0df")
+[node name="Background" parent="." instance=ExtResource("1_5tgdl")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(296, 424)
+position = Vector2(360, 640)
 metadata/_edit_lock_ = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
-offset_left = 16.0
-offset_top = 24.0
-offset_right = 344.0
-offset_bottom = 80.0
-
-[node name="Label" type="Label" parent="CanvasLayer/CenterContainer"]
-texture_filter = 1
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 1
-theme_override_constants/shadow_offset_y = 1
-theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("3_felht")
-theme_override_font_sizes/font_size = 32
-text = "0"
-horizontal_alignment = 1
-
-[node name="Player" parent="." instance=ExtResource("1_w37s1")]
-position = Vector2(96, 416)
+[node name="Player" parent="." instance=ExtResource("1_1w7wy")]
+position = Vector2(360, 609)
 
 [node name="TimerAddPipes" type="Timer" parent="."]
 autostart = true
 
-[node name="Background" parent="." instance=ExtResource("4_muon1")]
-metadata/_edit_lock_ = true
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Killzone" type="Area2D" parent="."]
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 720.0
+offset_bottom = 74.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
-position = Vector2(56, 784)
-shape = SubResource("WorldBoundaryShape2D_075ds")
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 720.0
+offset_bottom = 128.0
+alignment = 1
+
+[node name="LabelScore" type="Label" parent="CanvasLayer/Control/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_fonts/font = ExtResource("4_cmmtq")
+theme_override_font_sizes/font_size = 64
+text = "0"

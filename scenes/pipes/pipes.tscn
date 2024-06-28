@@ -1,29 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://df08r0xlbipu8"]
+[gd_scene load_steps=4 format=3 uid="uid://b61oowydbbb73"]
 
-[ext_resource type="Script" path="res://scenes/pipes/pipes.gd" id="1_o5sfl"]
-[ext_resource type="PackedScene" uid="uid://bo5fwf7l3rwx1" path="res://scenes/pipes/pipe.tscn" id="2_4pt7y"]
+[ext_resource type="Script" path="res://pipes.gd" id="1_w00pi"]
+[ext_resource type="PackedScene" uid="uid://bheca6sghs7je" path="res://scenes/pipes/pipe.tscn" id="2_gqxxh"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o7wei"]
-radius = 1.0
-height = 74.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gfscq"]
+radius = 3.0
+height = 94.0
 
 [node name="Pipes" type="Node2D"]
-script = ExtResource("1_o5sfl")
+script = ExtResource("1_w00pi")
 
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2(9, 0)
+[node name="PipeTop" parent="." instance=ExtResource("2_gqxxh")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(5, 0)
-shape = SubResource("CapsuleShape2D_o7wei")
-
-[node name="PipeTop" parent="." instance=ExtResource("2_4pt7y")]
-position = Vector2(0, -35)
+[node name="PipeBottom" parent="." instance=ExtResource("2_gqxxh")]
 rotation = 3.14159
 
-[node name="PipeBottom" parent="." instance=ExtResource("2_4pt7y")]
-position = Vector2(0, 35)
-
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(29, 2)
-scale = Vector2(0.8, 2)
+position = Vector2(0.5, 3.14713e-05)
+scale = Vector2(1.25, 43.2)
+
+[node name="SafeArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SafeArea"]
+position = Vector2(10, 0)
+shape = SubResource("CapsuleShape2D_gfscq")

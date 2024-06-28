@@ -1,63 +1,56 @@
-[gd_scene load_steps=8 format=3 uid="uid://cfal58l6541dx"]
+[gd_scene load_steps=8 format=3 uid="uid://ojouugymjgfc"]
 
-[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_7jbbs"]
-[ext_resource type="Texture2D" uid="uid://dqpm0oqhygqfe" path="res://assets/sprites/bird.png" id="2_depfu"]
+[ext_resource type="Texture2D" uid="uid://bm5bj2b3drqe2" path="res://assets/sprites/bird.png" id="1_2ed60"]
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_kjifl"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7m6en"]
-atlas = ExtResource("2_depfu")
+[sub_resource type="AtlasTexture" id="AtlasTexture_jebwf"]
+atlas = ExtResource("1_2ed60")
 region = Rect2(0, 0, 20, 18)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1ksnq"]
-atlas = ExtResource("2_depfu")
+[sub_resource type="AtlasTexture" id="AtlasTexture_mcntu"]
+atlas = ExtResource("1_2ed60")
 region = Rect2(20, 0, 20, 18)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nueft"]
-atlas = ExtResource("2_depfu")
+[sub_resource type="AtlasTexture" id="AtlasTexture_fl6ja"]
+atlas = ExtResource("1_2ed60")
 region = Rect2(40, 0, 20, 18)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_8b7n1"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_es0ii"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7m6en")
+"texture": SubResource("AtlasTexture_jebwf")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1ksnq")
+"texture": SubResource("AtlasTexture_mcntu")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_nueft")
+"texture": SubResource("AtlasTexture_fl6ja")
 }],
 "loop": true,
 "name": &"idle",
-"speed": 10.0
+"speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_5tdpl"]
-radius = 21.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_awsq5"]
+radius = 5.83095
 
 [node name="Player" type="CharacterBody2D"]
-position = Vector2(0, -10)
-script = ExtResource("1_7jbbs")
+scale = Vector2(5, 5)
+script = ExtResource("1_kjifl")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-21.7143, 4)
-scale = Vector2(3.55556, 3.55555)
-sprite_frames = SubResource("SpriteFrames_8b7n1")
+position = Vector2(0, -6)
+sprite_frames = SubResource("SpriteFrames_es0ii")
 animation = &"idle"
-autoplay = "idle"
-frame_progress = 0.328341
-offset = Vector2(6.42857, -9.53674e-07)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 4)
-shape = SubResource("CircleShape2D_5tdpl")
+position = Vector2(-0.4, -6)
+rotation = 1.5708
+shape = SubResource("CircleShape2D_awsq5")
 
 [node name="MarkerTop" type="Marker2D" parent="."]
-position = Vector2(0, -17)
+position = Vector2(0, -12)
 
 [node name="MarkerBottom" type="Marker2D" parent="."]
-position = Vector2(0, 25)
-
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(-1, 27)
-scale = Vector2(2.95, 0.2)
+position = Vector2(0, -9.53674e-07)
